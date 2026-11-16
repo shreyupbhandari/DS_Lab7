@@ -1,42 +1,68 @@
 public class Queue<T>
 {
-    //be sure that your attributes are protected, so subclasses can use them
+	private class Node<T>
+	{
+		private T val;
+		private Node<T> next;
 
+		private Node(T val, Node<T> node)
+		{
+			this.val=val;
+			next=node;
+		}
+	}
 
-   public Queue()
-   {
-   
-   }
+	private Node<T> head = null;
+	private Node<T> tail = null;
 
+	public Queue()
+	{
 
-    /**Adds val to the end of the queue
-     */
-   public void push(T val)
-   {
-   
-   }
+	}
 
+	/**Adds val to the end of the queue
+	 */
+	public void push(T val)
+	{
+		if (head==null)
+		{
+			head= new Node<>(val, null);
+			tail=head;
+		}
+		else
+		{
+			tail.next= new Node<>(val, null);
+			tail=tail.next;
+		}
+	}
 
-    /**
-       removes and returns the oldest value in the queue
-       throws QueueUnderFlowException if the queue is empty
-     */
-   public T pop()
-   {
-       return null;
-   }    
+	/**
+	 * removes and returns the oldest value in the queue
+	 * throws QueueUnderFlowException if the queue is empty
+	 */
+	public T pop() throws QueueUnderFlowException
+	{
+		if (head==null)
+		{
+			throw new QueueUnderFlowException();
+		}
 
+		T value=head.val;
+		head=head.next;
 
-    /**
-      returns true if the queue is empty
-     */
+		if (head==null)
+		{
+			tail=null;
+		}
 
-   public boolean isEmpty()
-   {
-       return false;
-   }
+		return value;
+	}
 
-
-
-
+	/**
+	 * returns true if the queue is empty
+	 */
+	public boolean isEmpty()
+	{
+		return head==null;
+	}
 }
